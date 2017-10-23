@@ -3,7 +3,7 @@ var Enemy = function () {
     // 要应用到每个敌人的实例的变量写在这里
     // 我们已经提供了一个来帮助你实现更多
     this.x = 0 - Math.ceil(Math.random() * 80);
-    this.y = rowDistance * enemyRows[Math.ceil(Math.random() * 4) - 1] - 20;
+    this.y = ROWDISTANCE * ENEMYROWS[Math.ceil(Math.random() * 4) - 1] - 20;
     this.speed = (50 + Math.random() * 50) + level * 10;
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
@@ -18,7 +18,7 @@ Enemy.prototype.update = function (dt) {
     this.x += dt * this.speed * level;
     if (this.x > ctx.canvas.width) {
         this.x = -100;
-        this.y = rowDistance * enemyRows[Math.ceil(Math.random() * 4) - 1] - 20;
+        this.y = ROWDISTANCE * ENEMYROWS[Math.ceil(Math.random() * 4) - 1] - 20;
     }
 };
 
@@ -46,6 +46,10 @@ var Player = function () {
     this.name = 'player';
     this.sprite = 'images/char-horn-girl.png';
 };
+player.prototype.reset=function(){
+    this.x = 202;
+    this.y = 83 * 5;
+}
 Player.prototype.update = function () {
     //难度和敌人数量修正
     if (allEnemies.length < enemyLimit + level) {
@@ -55,7 +59,7 @@ Player.prototype.update = function () {
         let enemy = allEnemies[i];
         if (enemy.y + 20 == this.y) {
             if (Math.abs(enemy.x - this.x) < 50) {
-                player = new Player();
+                this.reset();
                 if (--life == 0) {
                     //game over
                     level = 1;
@@ -69,11 +73,11 @@ Player.prototype.update = function () {
         }
     }
     if (princess.x === this.x && princess.y === this.y - 5) {
-        if (level < maxLevel) {
+        if (level < MAXLEVEL) {
             level++;
         }
         score += 100 * level;
-        player = new Player();
+       this.reset();
     }
 }
 Player.prototype.render = function () {
@@ -89,35 +93,36 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (direction) {
     switch (direction) {
         case 'left':
-            if (player.x >= 101) {
-                player.x -= 101;
+            if (this.x >= 101) {
+                this.x -= 101;
             }
             break;
         case 'up':
-            if (player.y >= 83) {
-                player.y -= 83;
+            if (this.y >= 83) {
+                this.y -= 83;
             }
             break;
         case 'right':
-            if (player.x < 101 * 4) {
-                player.x += 101;
+            if (this.x < 101 * 4) {
+                this.x += 101;
             }
             break;
         case 'down':
-            if (player.y < 83 * 5) {
-                player.y += 83;
+            if (this.y < 83 * 5) {
+                this.y += 83;
             }
             break;
     }
 
 }
 
-var colDistance = 101; //列间距
-var rowDistance = 83; //行间距
-var enemyRows = [1, 2, 3, 4]; //生成敌人（或障碍物、道具等）的行
-var enemyLimit = 3; //最大敌人初始限制LEVEL 1
+var COLDISTANCE = 101; //列间距
+var ROWDISTANCE = 83; //行间距
+var ENEMYROWS = [1, 2, 3, 4]; //生成敌人（或障碍物、道具等）的行
+var MAXLEVEL = 5; //最高难度
+
+var enemyLimit = 3; //最大敌人初始限制level 1
 var level = 1; //初始难度
-var maxLevel = 5; //最高难度
 var life = 3; //生命
 var score = 0; //得分
 
