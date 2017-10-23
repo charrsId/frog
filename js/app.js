@@ -75,6 +75,13 @@ Player.prototype.update = function () {
 }
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y - 10);
+    ctx.clearRect(0, 0, ctx.canvas.width, 30);
+    ctx.textAlign='center';
+    ctx.lineWidth=2;
+    ctx.font='30px impact';
+    ctx.fillStyle='blue';
+    ctx.fillText(`life：${life}，score：${score}，level：${level}`,200, 30);
+    
 }
 Player.prototype.handleInput = function (direction) {
     switch (direction) {
