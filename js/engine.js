@@ -64,8 +64,16 @@ var Engine = (function(global) {
      * 注释了，你可以在这里实现，也可以在 app.js 对应的角色类里面实现。
      */
     function update(dt) {
-        updateEntities(dt);
-        // checkCollisions();
+         updateEntities(dt);
+         checkCollisions();
+    }
+
+    
+    /**
+     * 位置检测
+     */
+    function checkCollisions(){
+        console.log(this)
     }
 
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
@@ -91,8 +99,8 @@ var Engine = (function(global) {
                 'images/stone-block.png',   // 第一行石头
                 'images/stone-block.png',   // 第二行石头
                 'images/stone-block.png',   // 第三行石头
-                'images/grass-block.png',   // 第一行草地
-                'images/grass-block.png'    // 第二行草地
+                'images/stone-block.png',   // 第四行石头
+                'images/grass-block.png'    // 第五行草地
             ],
             numRows = 6,
             numCols = 5,
@@ -108,7 +116,7 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
+        princess.init();
         renderEntities();
     }
 
@@ -140,7 +148,24 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
+
+        'images/Gem Blue.png',
+        'images/Gem Green.png',
+        'images/Gem Orange.png',
+        'images/Gem Orange.png',
+
+        'images/Heart.png',
+        'images/Key.png',
+        'images/Rock.png',
+        
+        'images/Selector.png',
+        'images/Star.png',
     ]);
     Resources.onReady(init);
 
