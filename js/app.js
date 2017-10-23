@@ -4,7 +4,7 @@ var Enemy = function () {
     // 我们已经提供了一个来帮助你实现更多
     this.x = 0 - Math.ceil(Math.random() * 80);
     this.y = rowDistance * enemyRows[Math.ceil(Math.random() * 4) - 1] - 20;
-    this.speed = (100 + Math.random() * 100) + level * 50;
+    this.speed = (50 + Math.random() * 50) + level * 10;
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
 
@@ -60,6 +60,9 @@ Player.prototype.update = function () {
                     //game over
                     level = 1;
                     score = 1;
+                    life = 3;
+                    allEnemies.length=1;
+                    allEnemies[0].speed=50;
                 }
                 break;
             }
@@ -75,13 +78,13 @@ Player.prototype.update = function () {
 }
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y - 10);
-    ctx.clearRect(0, 0, ctx.canvas.width, 30);
-    ctx.textAlign='center';
-    ctx.lineWidth=2;
-    ctx.font='30px impact';
-    ctx.fillStyle='blue';
-    ctx.fillText(`life：${life}，score：${score}，level：${level}`,200, 30);
-    
+    ctx.clearRect(0, 0, ctx.canvas.width, 40);
+    ctx.textAlign = 'center';
+    ctx.lineWidth = 2;
+    ctx.font = '25px impact';
+    ctx.fillStyle = 'black';
+    ctx.fillText(`life：${life}，score：${score}，level：${level}`, 200, 30);
+
 }
 Player.prototype.handleInput = function (direction) {
     switch (direction) {
@@ -108,6 +111,7 @@ Player.prototype.handleInput = function (direction) {
     }
 
 }
+
 var colDistance = 101; //列间距
 var rowDistance = 83; //行间距
 var enemyRows = [1, 2, 3, 4]; //生成敌人（或障碍物、道具等）的行
