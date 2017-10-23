@@ -46,7 +46,7 @@ var Player = function () {
     this.name = 'player';
     this.sprite = 'images/char-horn-girl.png';
 };
-player.prototype.reset=function(){
+Player.prototype.reset=function(){
     this.x = 202;
     this.y = 83 * 5;
 }
